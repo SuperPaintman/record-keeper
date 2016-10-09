@@ -27,8 +27,7 @@ export default class Json extends Configurator {
 
   formatError(err: any): ConfiguratorError {
     return new ConfiguratorError(err.message, {
-      configurator: Json,
-      code:         err.code
+      configurator: Json
     });
   }
 }
