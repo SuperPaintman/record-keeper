@@ -1,6 +1,7 @@
 {
   "globalDependencies": {
     "joi": "registry:dt/joi#9.0.0+20160906140128",
+    "js-yaml": "registry:dt/js-yaml#3.5.2+20160316171810",
     "node": "registry:env/node#6.0.0+20160918225031",
     "shelljs": "registry:dt/shelljs#0.0.0+20161003183410"
   },
