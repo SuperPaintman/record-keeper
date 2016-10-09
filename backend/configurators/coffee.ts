@@ -16,6 +16,7 @@ import {
 const sandboxDefault = {
   _:        _,
   coffee:   coffee,
+  exports: {},
   module: {
     exports: {}
   },
@@ -34,6 +35,7 @@ const sandboxDefault = {
 };
 
 const configWrapper = new vm.Script(`
+module.exports = exports;
 module.exports = coffee.eval(config);
 `);
 
