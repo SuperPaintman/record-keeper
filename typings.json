@@ -1,5 +1,6 @@
 {
   "globalDependencies": {
-    "node": "registry:env/node#6.0.0+20160918225031"
+    "node": "registry:env/node#6.0.0+20160918225031",
+    "shelljs": "registry:dt/shelljs#0.0.0+20161003183410"
   }
 }
