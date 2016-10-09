@@ -22,3 +22,19 @@ export function shExecPromise(command: string): Promise<string> {
     });
   });
 }
+
+export class AbstractClass {
+  constructor(constructor: Function, name?: string) {
+    if (!name) {
+      name = constructor.name;
+    }
+
+    if (this.constructor === AbstractClass) {
+      throw new Error(`Cannot create an instance of the abstract class "AbstractClass"`);
+    }
+
+    if (this.constructor === constructor) {
+      throw new Error(`Cannot create an instance of the abstract class "${name}"`);
+    }
+  }
+}
