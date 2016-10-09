@@ -1,9 +1,37 @@
 'use strict';
 
 /**
+ * @see https://github.com/loganfsmyth/babel-plugin-transform-builtin-extend
+ */
+export function extendableBuiltin<T>(constructor: T): T {
+  function ExtendableBuiltin() {
+    (constructor as any).apply(this, arguments);
+  }
+
+  ExtendableBuiltin.prototype = Object.create((constructor as any).prototype, {
+    constructor: {
+      value: constructor,
+      enumerable: false,
+      writable: true,
+      configurable: true
+    }
+  });
+
+  if (Object.setPrototypeOf) {
+    Object.setPrototypeOf(ExtendableBuiltin, constructor);
+  } else {
+    (ExtendableBuiltin as any).__proto__ = constructor;
+  }
+
+  return (ExtendableBuiltin as any);
+}
+
+const BuiltinError = extendableBuiltin(Error);
+
+/**
  * @see https://github.com/bjyoungblood/es6-error
  */
-export class ExtendableError extends Error {
+export class ExtendableError extends BuiltinError {
   constructor(message: string = '') {
     super(message);
 
