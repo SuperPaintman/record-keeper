@@ -26,12 +26,12 @@ export function extendableBuiltin<T>(constructor: T): T {
   return (ExtendableBuiltin as any);
 }
 
-const BuiltinError = extendableBuiltin(Error);
+const builtinError = extendableBuiltin(Error);
 
 /**
  * @see https://github.com/bjyoungblood/es6-error
  */
-export class ExtendableError extends BuiltinError {
+export class ExtendableError extends builtinError {
   constructor(message: string = '') {
     super(message);
 
