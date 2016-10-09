@@ -38,3 +38,20 @@ export class ExtendableError extends Error {
 export class ShExecError extends ExtendableError {
   code: number;
 }
+
+export interface IConfiguratorErrorOptions {
+  configurator: any;
+  code?:        string;
+}
+
+export class ConfiguratorError extends ExtendableError {
+  configurator: any;
+  code:         string;
+
+  constructor(message: string = '' , options: IConfiguratorErrorOptions) {
+    super(message);
+
+    this.configurator = options.configurator;
+    this.code         = options.code;
+  }
+}
