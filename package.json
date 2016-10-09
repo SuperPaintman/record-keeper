@@ -28,6 +28,7 @@
     "babel-polyfill": "6.9.1",
     "coffee-script": "1.11.1",
     "joi": "9.1.0",
+    "livescript": "1.5.0",
     "lodash": "4.11.1",
     "shelljs": "0.7.4",
     "source-map-support": "0.4.0"
