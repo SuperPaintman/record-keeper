@@ -27,22 +27,32 @@ function eslintToTslintFormatter(formatter) {
 
   return class Formatter extends TSLint.Formatters.AbstractFormatter {
     format(failures) {
-      const resultsObj = failures.reduce((res, failure) => {
-        if (!res[failure.sourceFile.fileName]) {
-          res[failure.sourceFile.fileName] = [];
-        }
+      const resultsObj = failures
+        .sort((a, b) => {
+          const res = a.startPosition.lineAndCharacter.line - b.startPosition.lineAndCharacter.line;
 
-        res[failure.sourceFile.fileName].push({
-          line:     failure.startPosition.lineAndCharacter.line,
-          column:   failure.startPosition.lineAndCharacter.character,
-          message:  failure.failure,
-          ruleId:   failure.ruleName,
-          source:   failure.sourceFile.text,
-          fatal:    true
-        });
+          if (res !== 0) {
+            return res;
+          }
 
-        return res;
-      }, {});
+          return a.startPosition.lineAndCharacter.character - b.startPosition.lineAndCharacter.character;
+        })
+        .reduce((res, failure) => {
+          if (!res[failure.sourceFile.fileName]) {
+            res[failure.sourceFile.fileName] = [];
+          }
+
+          res[failure.sourceFile.fileName].push({
+            line:     failure.startPosition.lineAndCharacter.line + 1,
+            column:   failure.startPosition.lineAndCharacter.character + 1,
+            message:  failure.failure,
+            ruleId:   failure.ruleName,
+            source:   failure.sourceFile.text,
+            fatal:    true
+          });
+
+          return res;
+        }, {});
 
       const results = Object.keys(resultsObj)
         .map((key) => ({
